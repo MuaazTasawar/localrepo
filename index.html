@@ -7,5 +7,63 @@
 </head>
 <body>
     <p>This is a new repo.</p>
+    <script>
+        // Fetch the JSON data
+        fetch('https://api.github.com/users/octocat/repos')
+           .then(response => response.json())
+           .then(data => {
+                // Display the repo names
+                const repoNames = data.map(repo => repo.name);
+                console.log(repoNames);
+            });
+    </script>
+    <!-- Add a button to fetch the latest commit message -->
+    <button onclick="fetchLatestCommitMessage()">Fetch Latest Commit Message</button>
+    <div id="commitMessage"></div>
+    <script>
+        // Function to fetch the latest commit message
+        function fetchLatestCommitMessage() {
+            fetch('https://api.github.com/repos/octocat/Hello-World/commits/master')
+               .then(response => response.json())
+               .then(data => {
+                    const commitMessage = data[0].commit.message;
+                    document.getElementById('commitMessage').innerText = commitMessage;
+                });
+        }
+        // Fetch the latest commit message when the button is clicked
+        fetchLatestCommitMessage();
+    </script>
+    <!-- Add a button to fetch the latest release tag -->
+    <button onclick="fetchLatestReleaseTag()">Fetch Latest Release Tag</button>
+    <div id="releaseTag"></div>
+    <script>
+        // Function to fetch the latest release tag
+        function fetchLatestReleaseTag() {
+            fetch('https://api.github.com/repos/octocat/Hello-World/releases/latest')
+               .then(response => response.json())
+               .then(data => {
+                    const releaseTag = data.tag_name;
+                    document.getElementById('releaseTag').innerText = releaseTag;
+                });
+        }
+        // Fetch the latest release tag when the button is clicked
+        fetchLatestReleaseTag();
+    </script>
+    <!-- Add a button to fetch the latest release date -->
+    <button onclick="fetchLatestReleaseDate()">Fetch Latest Release Date</button>
+    <div id="releaseDate"></div>
+    <script>
+        // Function to fetch the latest release date
+        function fetchLatestReleaseDate() {
+            fetch('https://api.github.com/repos/octocat/Hello-World/releases/latest')
+               .then(response => response.json())
+               .then(data => {
+                    const releaseDate = new Date(data.published_at).toLocaleString();
+                    document.getElementById('releaseDate').innerText = releaseDate;
+                });
+        }
+        // Fetch the latest release date when the button is clicked
+        fetchLatestReleaseDate();
+    </script>
 </body>
 </html>
